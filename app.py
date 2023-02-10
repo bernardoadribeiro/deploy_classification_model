@@ -24,7 +24,7 @@ def predict(sw, sl, pw, pl):
         pw: PetalWidth
         pl: PetalLeight
     """
-    result = iris_model.predict([[sw, sh, pw, ph]])
+    result = iris_model.predict([[sw, sl, pw, pl]])
     return "Class: {}".format(result)
 
 ## App config ##
