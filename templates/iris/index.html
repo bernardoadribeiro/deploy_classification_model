@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block head %} <title>Iris Prediction</title> {% endblock %}
+
+{% block content %}
+
+    <h2>Iris Prediction</h2>
+    
+    <div class="row">
+        <div class="col-6">
+            <form action="/predict/iris/form/" method="post">
+                <fieldset>
+                    <div class="form-group">
+                        <label for="sepall">Sepal Length</label>
+                        <input type="text" id="sepall" name="sepall" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="sepalw">Sepal Width</label>
+                        <input type="text" id="sepalw" name="sepalw" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="petall">Petal Length</label>
+                        <input type="text" id="petall" name="petall" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="petalw">Petal Width</label>
+                        <input type="text" id="petalw" name="petalw" class="form-control">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">Predict</button>
+                </fieldset>
+            </form>
+        </div>
+
+        <div class="col-6">
+            <h2>Prediction result: </h2>
+            <p>Class name: {{ result }}</p>
+        </div>
+    </div>
+{% endblock %}
