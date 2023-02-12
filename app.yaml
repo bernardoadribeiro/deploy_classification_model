@@ -5,8 +5,3 @@ handlers:
   static_dir: static
 - url: /.*
   script: auto
-  
-libraries:
-  # create secure connections between the client and server
-  - name: ssl
-    version: latest
