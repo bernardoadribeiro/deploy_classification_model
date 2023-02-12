@@ -1,9 +1,11 @@
 import pickle
 from flask import Flask, jsonify, render_template, request
+from models import load_models
+
 
 ## Import prediction models
 iris_model = pickle.load(open('models/iris_decision_tree_model.pkl', 'rb'))
-product_category_model = pickle.load(open('models/productcategory_randtree_ros.pkl', 'rb'))
+product_category_model = load_models.decompress_pickle('./models/productcategory_randtree_ros.pbz2') # decompress pbz2 (compressed pickle file) to the model
 
 app = Flask(__name__)
 
