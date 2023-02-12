@@ -27,7 +27,8 @@ def decompress_pickle(model):
     return data
 
 
-# # Compress the model to upload to git
+# # Compress the model to upload to git. Here we call the function to compress the pickle file.
+# # Uncomment the code below and modify the params to compress.
 # compress_pickle('productcategory_randtree_ros', 
 #                 pickle.load(open('productcategory_randtree_ros.pkl', 'rb'))
 #             )
