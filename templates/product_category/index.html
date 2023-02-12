@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block head %} <title>Predict Product Class</title> {% endblock %}
+
+{% block content %}
+
+    <h2>Predict Product Classification</h2>
+    <p>
+        This prediction is based on the model generated using this 
+        <a href="https://www.kaggle.com/competitions/otto-group-product-classification-challenge/data" target="_blank" rel="noopener noreferrer"> dataset</a> 
+         provided by <a href="https://kaggle.com/" target="_blank" rel="noopener noreferrer"> kaggle </a>
+    </p>
+
+    <div class="row">
+        <div class="col-md-7">
+            <form>
+                <fieldset>
+
+                    <!-- Predict button -->
+                    <div class="row" style="margin-bottom: 1rem;">
+                        <button id="btn-predict" type="submit" class="btn btn-primary" style="margin-top: 1rem;">Predict</button>
+                    </div>
+
+                    <!-- Form input fields -->
+                    <div class="row">
+                        <!-- Here we are creating columns of fields with 15 fields in each column. -->
+                        <div class="col">
+                            {% for i in range(1, 16) %}
+                                <div class="form-group">
+                                    <label for="{{ 'feat_' ~ i }}">{{ 'feat_' ~ i }}</label>
+                                    <input type="text" id="{{ 'feat_' ~ i }}" name="{{ 'feat_' ~ i }}" class="form-control" value="0">
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="col">
+                            {% for i in range(16, 31) %}
+                                <div class="form-group">
+                                    <label for="{{ 'feat_' ~ i }}">{{ 'feat_' ~ i }}</label>
+                                    <input type="text" id="{{ 'feat_' ~ i }}" name="{{ 'feat_' ~ i }}" class="form-control" value="0">
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="col">
+                            {% for i in range(31, 46) %}
+                                <div class="form-group">
+                                    <label for="{{ 'feat_' ~ i }}">{{ 'feat_' ~ i }}</label>
+                                    <input type="text" id="{{ 'feat_' ~ i }}" name="{{ 'feat_' ~ i }}" class="form-control" value="0">
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="col">
+                            {% for i in range(46, 61) %}
+                                <div class="form-group">
+                                    <label for="{{ 'feat_' ~ i }}">{{ 'feat_' ~ i }}</label>
+                                    <input type="text" id="{{ 'feat_' ~ i }}" name="{{ 'feat_' ~ i }}" class="form-control" value="0">
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="col">
+                            {% for i in range(61, 76) %}
+                                <div class="form-group">
+                                    <label for="{{ 'feat_' ~ i }}">{{ 'feat_' ~ i }}</label>
+                                    <input type="text" id="{{ 'feat_' ~ i }}" name="{{ 'feat_' ~ i }}" class="form-control" value="0">
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="col">
+                            {% for i in range(76, 91) %}
+                                <div class="form-group">
+                                    <label for="{{ 'feat_' ~ i }}">{{ 'feat_' ~ i }}</label>
+                                    <input type="text" id="{{ 'feat_' ~ i }}" name="{{ 'feat_' ~ i }}" class="form-control" value="0">
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="col">
+                            {% for i in range(91, 94) %}
+                                <div class="form-group">
+                                    <label for="{{ 'feat_' ~ i }}">{{ 'feat_' ~ i }}</label>
+                                    <input type="text" id="{{ 'feat_' ~ i }}" name="{{ 'feat_' ~ i }}" class="form-control" value="0">
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                    <!-- End of input fields -->
+
+                </fieldset>
+            </form>
+        </div>
+
+        <div class="col-3">
+            <h2>Classification result: </h2>
+            <p>Category name: {{ result }} <span id="result"></span>  </p>
+        </div>"
+
+    </div>
+
+    <script src="{{url_for('static', filename='product_category_requests.js')}}"></script>
+
+{% endblock %}
