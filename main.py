@@ -1,6 +1,7 @@
 import pickle
 from flask import Flask, jsonify, render_template, request
 from models import load_models
+from decouple import config
 
 
 ## Import prediction models
@@ -8,7 +9,7 @@ iris_model = pickle.load(open('models/iris_decision_tree_model.pkl', 'rb'))
 product_category_model = load_models.decompress_pickle('./models/productcategory_randtree_ros.pbz2') # decompress pbz2 (compressed pickle file) to the model
 
 app = Flask(__name__)
-
+app.secret_key = config('SECRET_KEY')
 
 ## App routes ##
 @app.route('/')
@@ -117,4 +118,8 @@ def product_category():
 
 ## App start ##
 if __name__ == '__main__':
-    app.run(debug=True, use_reloader=True, host='0.0.0.0', port=5000)
+    app.run(
+        debug=config('FLASK_DEBUG'), 
+        host='0.0.0.0', 
+        port=config('FLASK_RUN_PORT')
+    )
