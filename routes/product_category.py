@@ -29,7 +29,7 @@ def product_category():
         return render_template('product_category/index.html')
 
     if request.method == 'POST':
-        product_category_model = load_models.decompress_pickle('./models/productcategory_randtree_ros.pbz2') # decompress pbz2 (compressed pickle file) to the model
+
         # Return error if no form data provided
         if request.want_form_data_parsed != True:
             return jsonify({
@@ -40,6 +40,9 @@ def product_category():
         # Read form data provided
         data = request.form.to_dict()
 
+        # Decompress pbz2 (compressed pickle file) to the model
+        product_category_model = load_models.decompress_pickle('./models/productcategory_randtree_ros.pbz2')
+        
         # Predict the product category passing all 93 features.
         result_class = product_category_model.predict([[
             data['feat_1'], data['feat_2'], data['feat_3'], data['feat_4'], data['feat_5'], data['feat_6'], data['feat_7'], data['feat_8'], data['feat_9'],
