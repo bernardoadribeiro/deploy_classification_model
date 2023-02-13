@@ -2,7 +2,6 @@
 
 ### **Objective:**
 This project implements a interface (with form) to use trainned models to predict the classification based on inputed data by user.
-We are using Python/Flask + Jinja2 + Bootsrap to provide APIs and a friendly UI.
 
 Click (here)[https://classification-model-webapp.uw.r.appspot.com/] to check the deployed application.
 
