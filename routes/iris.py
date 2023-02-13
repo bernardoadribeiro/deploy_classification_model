@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template, request, jsonify
-from models import load_models
 import pickle
 
 
