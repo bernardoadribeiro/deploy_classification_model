@@ -4,10 +4,6 @@ from models import load_models
 from decouple import config
 
 
-## Import prediction models
-iris_model = pickle.load(open('models/iris_decision_tree_model.pkl', 'rb'))
-product_category_model = load_models.decompress_pickle('./models/productcategory_randtree_ros.pbz2') # decompress pbz2 (compressed pickle file) to the model
-
 app = Flask(__name__)
 app.secret_key = config('SECRET_KEY')
 
@@ -32,6 +28,7 @@ def get_iris_predict(sw, sl, pw, pl):
         pl: <float> PetalLeight
     """
     
+    iris_model = pickle.load(open('models/iris_decision_tree_model.pkl', 'rb'))
     result = iris_model.predict([[sw, sl, pw, pl]])
 
     if result[0] == 0:
@@ -66,6 +63,7 @@ def iris_predict_form():
         petall = request.form.get('petall')
         petalw = request.form.get('petalw')
 
+        iris_model = pickle.load(open('models/iris_decision_tree_model.pkl', 'rb'))
         result = iris_model.predict([[sepall, sepalw, petall, petalw]])
 
         if result[0] == 0:
@@ -87,6 +85,7 @@ def product_category():
         return render_template('product_category/index.html')
 
     if request.method == 'POST':
+        product_category_model = load_models.decompress_pickle('./models/productcategory_randtree_ros.pbz2') # decompress pbz2 (compressed pickle file) to the model
         # Return error if no form data provided
         if request.want_form_data_parsed != True:
             return jsonify({
