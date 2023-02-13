@@ -2,3 +2,4 @@
 .env
 **/__pycache__/
 productcategory_randtree_ros.pkl
+.gcloudignore
