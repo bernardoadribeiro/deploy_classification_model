@@ -1,9 +1,8 @@
 runtime: python311
+instance_class: F4
 
 handlers:
 - url: /static
   static_dir: static
 - url: /.*
-  script: auto
-
-instance_class: F2
+  script: main.app
