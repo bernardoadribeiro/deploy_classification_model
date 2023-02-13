@@ -4,6 +4,8 @@ document.getElementById('btn-predict').addEventListener('click', function(event)
 
     const form = new FormData(event.target.form); // Read form data
 
+    document.getElementById('result').innerHTML = 'Loading...<div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>' //Show loading animation while waiting the response.
+
     // Send request to API to predict the product category
     fetch('/predict/product_category/', {
         method: 'POST',
