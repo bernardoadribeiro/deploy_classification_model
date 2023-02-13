@@ -4,10 +4,6 @@ from models import load_models
 from decouple import config
 
 
-## Import prediction models
-iris_model = pickle.load(open('models/iris_decision_tree_model.pkl', 'rb'))
-product_category_model = load_models.decompress_pickle('./models/productcategory_randtree_ros.pbz2') # decompress pbz2 (compressed pickle file) to the model
-
 app = Flask(__name__)
 app.secret_key = config('SECRET_KEY')
 
@@ -31,7 +27,8 @@ def get_iris_predict(sw, sl, pw, pl):
         pw: <float> PetalWidth
         pl: <float> PetalLeight
     """
-    
+
+    iris_model = pickle.load(open('models/iris_decision_tree_model.pkl', 'rb'))
     result = iris_model.predict([[sw, sl, pw, pl]])
 
     if result[0] == 0:
@@ -50,7 +47,7 @@ def iris_predict_form():
 
         GET: Returns the form page
         POST: Returns the result class using the inputed data in the form
-            params: 
+            Body: Form-data with:
             - sepall: <float> SepalWidth
             - sepalw: <float> SepalLeight
             - petall: <float> PetalWidth
@@ -66,6 +63,7 @@ def iris_predict_form():
         petall = request.form.get('petall')
         petalw = request.form.get('petalw')
 
+        iris_model = pickle.load(open('models/iris_decision_tree_model.pkl', 'rb'))
         result = iris_model.predict([[sepall, sepalw, petall, petalw]])
 
         if result[0] == 0:
@@ -83,10 +81,23 @@ def iris_predict_form():
 """
 @app.route('/predict/product_category/', methods=['GET', 'POST'])
 def product_category():
+    """
+        Implements the product category classification interface to predict the product category.
+
+        Methods:
+        - GET : returns the form page.
+        - POST : return a JSON response with the product category.
+          Body: form-data
+           - feat_1: int
+           - feat_2: int
+           - feat_n: int
+           Obs.: The POST method expects a body with form data with the 93 feat_ to predict.
+    """
     if request.method == 'GET':
         return render_template('product_category/index.html')
 
     if request.method == 'POST':
+        product_category_model = load_models.decompress_pickle('./models/productcategory_randtree_ros.pbz2') # decompress pbz2 (compressed pickle file) to the model
         # Return error if no form data provided
         if request.want_form_data_parsed != True:
             return jsonify({
@@ -97,7 +108,7 @@ def product_category():
         # Read form data provided
         data = request.form.to_dict()
 
-        # Predict the product category
+        # Predict the product category passing all 93 features.
         result_class = product_category_model.predict([[
             data['feat_1'], data['feat_2'], data['feat_3'], data['feat_4'], data['feat_5'], data['feat_6'], data['feat_7'], data['feat_8'], data['feat_9'],
             data['feat_10'], data['feat_11'], data['feat_12'], data['feat_13'], data['feat_14'], data['feat_15'], data['feat_16'], data['feat_17'], data['feat_18'], data['feat_19'], 
