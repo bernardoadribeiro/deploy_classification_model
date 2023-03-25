@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, render_template
 from decouple import config
 
-from routes import product_category, iris
+from routes import breast_cancer, product_category, iris
 
 
 app = Flask(__name__)
@@ -18,6 +18,7 @@ def index():
 ## Register app routes ##
 app.register_blueprint(iris.iris_bp, url_prefix='/predict/')
 app.register_blueprint(product_category.product_category_bp, url_prefix='/predict/')
+app.register_blueprint(breast_cancer.breast_cancer_bp, url_prefix='/predict/')
 
 
 ## App start ##
