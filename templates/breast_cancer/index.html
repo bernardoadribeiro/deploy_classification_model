@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block head %} <title>Predict Breast Cancer</title> {% endblock %}
+
+{% block content %}
+
+    <h2>Breast Cancer Classification</h2>
+    <p>
+        This prediction is based on the model generated using this 
+        <a href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_breast_cancer.html" target="_blank" rel="noopener noreferrer"> dataset</a> 
+         provided by <a href="https://scikit-learn.org/stable/index.html" target="_blank" rel="noopener noreferrer"> sklearn.datasets.load_breast_cancer </a>
+    </p>
+
+    <div class="row">
+        <div class="col-md-7">
+            <form action="/predict/breast_cancer/" method="post">
+                <fieldset>
+
+                    <!-- Predict button -->
+                    <div class="row" style="margin-bottom: 1rem;">
+                        <button id="btn-predict" type="submit" class="btn btn-primary" style="margin-top: 1rem;">Predict</button>
+                    </div>
+
+                    <!-- Form input fields -->
+                    <div class="row">
+                        <!-- Here we are creating columns of fields with 15 fields in each column. -->
+                        
+                        {% for field in fields %}
+                        <div class="form-group">
+                            <label for="{{ field }}">{{ field|replace("_", " ")|title }}</label>
+                            <input type="text" id="{{ field }}" name="{{ field }}" class="form-control" value="0">
+                        </div>
+                        {% endfor %}
+
+                    </div>
+                    <!-- End of input fields -->
+
+                </fieldset>
+            </form>
+        </div>
+
+        <div class="col-3">
+            <h2>Classification result: </h2>
+            <p>Category name: {{ result }} <span id="result" style="font-weight: 600;"></span>  </p>
+        </div>
+
+    </div>
+
+    <script src="{{url_for('static', filename='breast_cancer_requests.js')}}"></script>
+
+{% endblock %}
